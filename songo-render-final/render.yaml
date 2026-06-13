@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: songo-v2
+    env: node
+    region: frankfurt          # ou oregon, singapore selon ta préférence
+    plan: free                 # plan gratuit Render
+
+    # Commandes
+    buildCommand: npm install
+    startCommand: npm start
+
+    # Variables d'environnement
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        generateValue: false   # Render gère PORT automatiquement
+
+    # Santé du service
+    healthCheckPath: /api/health

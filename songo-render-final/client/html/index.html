@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songo V2 - Version Distribuée</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- CONNECTION SCREEN -->
+    <!-- ============================================ -->
+    <div id="screen-connection" class="screen active">
+        <div class="connection-container">
+            <div class="logo">
+                <h1>SONGO</h1>
+                <p class="subtitle">Version Distribuée</p>
+            </div>
+
+            <div class="connection-card">
+                <h2>Connexion</h2>
+                
+                <div class="connection-section">
+                    <button id="btn-create-room" class="btn btn-primary btn-large">
+                        <span class="btn-icon">🏠</span>
+                        Créer un salon
+                    </button>
+                    <p class="btn-description">Créez un nouveau salon et invitez un adversaire</p>
+                </div>
+
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+
+                <div class="connection-section">
+                    <div class="input-group">
+                        <label for="input-room-code">Code du salon</label>
+                        <input type="text" id="input-room-code" 
+                               placeholder="Ex: ABC123" 
+                               maxlength="6"
+                               autocomplete="off"
+                               spellcheck="false">
+                    </div>
+                    <button id="btn-join-room" class="btn btn-secondary btn-large">
+                        <span class="btn-icon">🚪</span>
+                        Rejoindre un salon
+                    </button>
+                </div>
+            </div>
+
+            <div class="connection-footer">
+                <p>Variante camerounaise de l'Oware/Mancala</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- WAITING SCREEN -->
+    <!-- ============================================ -->
+    <div id="screen-waiting" class="screen">
+        <div class="waiting-container">
+            <div class="waiting-card">
+                <h2>En attente de l'adversaire</h2>
+                
+                <div class="waiting-animation">
+                    <div class="seed-loader">
+                        <div class="seed-dot"></div>
+                        <div class="seed-dot"></div>
+                        <div class="seed-dot"></div>
+                        <div class="seed-dot"></div>
+                        <div class="seed-dot"></div>
+                    </div>
+                </div>
+
+                <div class="room-code-display">
+                    <p class="room-code-label">Code du salon</p>
+                    <p id="display-room-code" class="room-code">------</p>
+                    <p class="room-code-hint">Partagez ce code avec votre adversaire</p>
+                </div>
+
+                <div class="player-info">
+                    <p>Vous êtes le <strong id="display-player-number">Joueur 1</strong></p>
+                </div>
+
+                <button id="btn-cancel-waiting" class="btn btn-danger">
+                    Annuler
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- GAME SCREEN -->
+    <!-- ============================================ -->
+    <div id="screen-game" class="screen">
+        <!-- Top bar with room info -->
+        <div class="game-topbar">
+            <div class="topbar-left">
+                <span class="topbar-label">Salon:</span>
+                <span id="game-room-code" class="topbar-value">------</span>
+            </div>
+            <div class="topbar-center">
+                <span id="game-status" class="game-status">En cours</span>
+            </div>
+            <div class="topbar-right">
+                <span class="topbar-label">Vous:</span>
+                <span id="game-player-label" class="topbar-value">Joueur 1</span>
+            </div>
+        </div>
+
+        <!-- Main game board area -->
+        <div class="game-board-container">
+            <!-- Player 2 info (top) -->
+            <div class="player-panel player-2-panel">
+                <div class="player-info-row">
+                    <span class="player-name">Joueur 2</span>
+                    <span class="player-score" id="score-player-2">0</span>
+                    <span class="score-label">graines</span>
+                </div>
+                <div id="turn-indicator-2" class="turn-indicator"></div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="board">
+                <!-- Top row (Player 2's holes) -->
+                <div class="board-row top-row">
+                    <div class="hole player2-hole" data-hole="13">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player2-hole" data-hole="12">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player2-hole" data-hole="11">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player2-hole" data-hole="10">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player2-hole" data-hole="9">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player2-hole" data-hole="8">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player2-hole" data-hole="7">
+                        <span class="seed-count">5</span>
+                    </div>
+                </div>
+
+                <!-- Row labels -->
+                <div class="board-divider">
+                    <div class="row-labels">
+                        <span class="row-label">← Joueur 2 →</span>
+                        <span class="row-label">← Joueur 1 →</span>
+                    </div>
+                </div>
+
+                <!-- Bottom row (Player 1's holes) -->
+                <div class="board-row bottom-row">
+                    <div class="hole player1-hole" data-hole="0">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player1-hole" data-hole="1">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player1-hole" data-hole="2">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player1-hole" data-hole="3">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player1-hole" data-hole="4">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player1-hole" data-hole="5">
+                        <span class="seed-count">5</span>
+                    </div>
+                    <div class="hole player1-hole" data-hole="6">
+                        <span class="seed-count">5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player 1 info (bottom) -->
+            <div class="player-panel player-1-panel">
+                <div id="turn-indicator-1" class="turn-indicator"></div>
+                <div class="player-info-row">
+                    <span class="player-name">Joueur 1</span>
+                    <span class="player-score" id="score-player-1">0</span>
+                    <span class="score-label">graines</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game message area -->
+        <div id="game-message" class="game-message hidden">
+            <span id="game-message-text"></span>
+        </div>
+
+        <!-- Leave game button -->
+        <div class="game-footer">
+            <button id="btn-leave-game" class="btn btn-danger btn-small">
+                Quitter la partie
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- GAME OVER SCREEN -->
+    <!-- ============================================ -->
+    <div id="screen-gameover" class="screen">
+        <div class="gameover-container">
+            <div class="gameover-card">
+                <h2 id="gameover-title">Partie terminée</h2>
+                <div id="gameover-result" class="gameover-result">
+                    <!-- Filled dynamically -->
+                </div>
+                <div id="gameover-scores" class="gameover-scores">
+                    <!-- Filled dynamically -->
+                </div>
+                <div id="gameover-reason" class="gameover-reason">
+                    <!-- Filled dynamically -->
+                </div>
+                <div class="gameover-actions">
+                    <button id="btn-play-again" class="btn btn-primary">
+                        Nouvelle partie
+                    </button>
+                    <button id="btn-back-menu" class="btn btn-secondary">
+                        Retour au menu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCONNECT OVERLAY -->
+    <!-- ============================================ -->
+    <div id="disconnect-overlay" class="overlay hidden">
+        <div class="overlay-card">
+            <div class="disconnect-icon">⚠️</div>
+            <h2>Adversaire déconnecté</h2>
+            <p>Votre adversaire s'est déconnecté. En attente de reconnexion...</p>
+            <div class="waiting-animation small">
+                <div class="seed-loader">
+                    <div class="seed-dot"></div>
+                    <div class="seed-dot"></div>
+                    <div class="seed-dot"></div>
+                </div>
+            </div>
+            <button id="btn-quit-disconnected" class="btn btn-danger">
+                Quitter la partie
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ERROR OVERLAY -->
+    <!-- ============================================ -->
+    <div id="error-overlay" class="overlay hidden">
+        <div class="overlay-card">
+            <div class="error-icon">❌</div>
+            <h2>Erreur</h2>
+            <p id="error-message">Une erreur est survenue</p>
+            <button id="btn-error-close" class="btn btn-primary">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/ajax/ajax-manager.js"></script>
+    <script src="../js/songo-client.js"></script>
+</body>
+</html>
