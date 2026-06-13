@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songo - Jeu Traditionnel Camerounais</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- En-tête -->
+        <header class="game-header">
+            <div class="title-section">
+                <h1 class="game-title">SONGO</h1>
+                <p class="game-subtitle">14 TROUS &bull; 70 GRAINES &bull; STRAT&Eacute;GIE PURE</p>
+            </div>
+            <div class="header-actions">
+                <button id="btn-theme" class="icon-btn" title="Changer le th&egrave;me" aria-label="Changer le th&egrave;me">
+                    <span class="icon-sun">&#9728;</span>
+                    <span class="icon-moon">&#9790;</span>
+                </button>
+                <button id="btn-help" class="icon-btn" title="Aide" aria-label="Aide">&#9432;</button>
+                <button id="btn-settings" class="icon-btn" title="Param&egrave;tres" aria-label="Param&egrave;tres">&#9881;</button>
+            </div>
+        </header>
+
+        <!-- Zone Scores -->
+        <section class="scores-section">
+            <div class="player-score player-1-score">
+                <div class="player-avatar player-1-avatar">
+                    <div class="avatar-ornament"></div>
+                    <span class="avatar-label">J1</span>
+                </div>
+                <div class="score-info">
+                    <span class="score-label">Joueur 1</span>
+                    <span class="score-value" id="score-p1">0</span>
+                    <span class="score-unit">graines captur&eacute;es</span>
+                </div>
+                <div class="turn-indicator" id="turn-p1">
+                    <span class="turn-text">&Agrave; vous de jouer</span>
+                </div>
+            </div>
+
+            <div class="vs-section">
+                <span class="vs-text">VS</span>
+                <span class="seeds-remaining" id="seeds-remaining">70 graines en jeu</span>
+            </div>
+
+            <div class="player-score player-2-score">
+                <div class="player-avatar player-2-avatar">
+                    <div class="avatar-ornament"></div>
+                    <span class="avatar-label">J2</span>
+                </div>
+                <div class="score-info">
+                    <span class="score-label">Joueur 2</span>
+                    <span class="score-value" id="score-p2">0</span>
+                    <span class="score-unit">graines captur&eacute;es</span>
+                </div>
+                <div class="turn-indicator" id="turn-p2">
+                    <span class="turn-text">En attente</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plateau de jeu -->
+        <main class="board-section">
+            <div class="board-frame">
+                <div class="board-border-outer">
+                    <div class="tribal-pattern top-pattern"></div>
+                    <div class="board-border-inner">
+                        <div class="row-label top-label">CAMP JOUEUR 2</div>
+                        <div class="game-board">
+                            <div class="row top-row" id="top-row">
+                                <!-- Trous 7 &agrave; 13 (affich&eacute;s de droite &agrave; gauche) -->
+                            </div>
+                            <div class="front-line">
+                                <span>LIGNE DE FRONT</span>
+                            </div>
+                            <div class="row bottom-row" id="bottom-row">
+                                <!-- Trous 0 &agrave; 6 -->
+                            </div>
+                        </div>
+                        <div class="row-label bottom-label">CAMP JOUEUR 1</div>
+                    </div>
+                    <div class="tribal-pattern bottom-pattern"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Zone de message -->
+        <section class="message-section">
+            <div class="message-box" id="message-box">
+                <p id="game-message">C&rsquo;est au Joueur 1 de jouer &ndash; choisissez un trou dans votre rang&eacute;e.</p>
+            </div>
+        </section>
+
+        <!-- Actions -->
+        <section class="actions-section">
+            <button id="btn-new-game" class="action-btn primary-btn">
+                <span class="btn-icon">&#10047;</span>
+                <span class="btn-text">Nouvelle Partie</span>
+            </button>
+            <button id="btn-restart" class="action-btn secondary-btn">
+                <span class="btn-icon">&#8635;</span>
+                <span class="btn-text">Reprendre</span>
+            </button>
+            <button id="btn-save" class="action-btn secondary-btn">
+                <span class="btn-icon">&#128190;</span>
+                <span class="btn-text">Sauvegarder</span>
+            </button>
+            <button id="btn-load" class="action-btn secondary-btn">
+                <span class="btn-icon">&#128194;</span>
+                <span class="btn-text">Charger</span>
+            </button>
+        </section>
+
+        <!-- Historique -->
+        <section class="history-section">
+            <div class="history-header">
+                <h2>Historique des coups</h2>
+                <button id="btn-clear-history" class="small-btn" title="Effacer l&rsquo;historique">Effacer</button>
+            </div>
+            <div class="history-list" id="history-list">
+                <p class="history-empty">Aucun coup jou&eacute;</p>
+            </div>
+        </section>
+
+        <!-- Modale d&rsquo;aide -->
+        <div class="modal-overlay" id="modal-help" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>R&egrave;gles du Songo</h2>
+                    <button class="modal-close" id="close-help">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h3>Objectif</h3>
+                    <p>Capturer plus de graines que votre adversaire.</p>
+                    <h3>D&eacute;roulement</h3>
+                    <p>Chaque joueur poss&egrave;de 7 trous. &Agrave; votre tour, choisissez un trou de votre camp, ramassez toutes les graines et distribuez-les une par une dans les trous suivants (sens antihoraire).</p>
+                    <h3>Capture</h3>
+                    <p>Si la derni&egrave;re graine tombe dans un trou adverse contenant alors 2 ou 3 graines, vous les capturez. Les trous pr&eacute;c&eacute;dents du camp adverse contenant 2 ou 3 graines sont &eacute;galement captur&eacute;s (capture en cha&icirc;ne).</p>
+                    <h3>Fin de partie</h3>
+                    <p>La partie se termine quand un joueur ne peut plus jouer ou qu&rsquo;il reste une seule graine. Le joueur ayant captur&eacute; le plus de graines gagne.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modale de fin de partie -->
+        <div class="modal-overlay" id="modal-gameover" hidden>
+            <div class="modal-content gameover-modal">
+                <div class="gameover-icon" id="gameover-icon">&#127942;</div>
+                <h2 id="gameover-title">Fin de partie</h2>
+                <p id="gameover-message"></p>
+                <div class="gameover-scores">
+                    <div class="gameover-player">
+                        <span>Joueur 1</span>
+                        <span id="final-score-p1">0</span>
+                    </div>
+                    <div class="gameover-player">
+                        <span>Joueur 2</span>
+                        <span id="final-score-p2">0</span>
+                    </div>
+                </div>
+                <button id="btn-play-again" class="action-btn primary-btn">Nouvelle Partie</button>
+            </div>
+        </div>
+
+        <!-- Modale param&egrave;tres -->
+        <div class="modal-overlay" id="modal-settings" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Param&egrave;tres</h2>
+                    <button class="modal-close" id="close-settings">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-row">
+                        <label for="setting-animation">Animations</label>
+                        <input type="checkbox" id="setting-animation" checked>
+                    </div>
+                    <div class="setting-row">
+                        <label for="setting-speed">Vitesse de distribution</label>
+                        <select id="setting-speed">
+                            <option value="slow">Lente</option>
+                            <option value="normal" selected>Normale</option>
+                            <option value="fast">Rapide</option>
+                        </select>
+                    </div>
+                    <div class="setting-row">
+                        <label for="setting-names">Noms des joueurs</label>
+                        <div class="name-inputs">
+                            <input type="text" id="setting-name-p1" placeholder="Joueur 1" maxlength="20">
+                            <input type="text" id="setting-name-p2" placeholder="Joueur 2" maxlength="20">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/songo.js"></script>
+</body>
+</html>

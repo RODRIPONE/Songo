@@ -1,0 +1,27 @@
+{
+    "name": "songo-v2-distributed",
+    "version": "2.0.0",
+    "description": "Songo V2 - Version distribuee du jeu Songo (variante camerounaise de l'Oware/Mancala)",
+    "main": "serveur/server.js",
+    "scripts": {
+        "start": "node serveur/server.js",
+        "dev": "node serveur/server.js"
+    },
+    "keywords": [
+        "songo",
+        "oware",
+        "mancala",
+        "game",
+        "multiplayer",
+        "cameroon"
+    ],
+    "author": "Songo Team",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "mysql2": "^3.22.5",
+        "uuid": "^9.0.0"
+    }
+}
